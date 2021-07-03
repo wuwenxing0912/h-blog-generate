@@ -9,16 +9,17 @@ categories: [JavaScript, TypeScript]
 
 在开始编写 [Button组件](https://wuwenxing0912.github.io/react-ui-lib/home.html) 之前，首先构思 Button 需要提供的 API，然后按照 API 的要求着手实现。API 具体如下：
 
-| API       | 说明               | 默认值  | 类型                                           |
-| --------- | ------------------ | ------- | ---------------------------------------------- |
-| type      | button类型         | default | "default" \| "primary" \| "dashed" \| "danger" |
-| className | 自定义类名         | ---     | string                                         |
-| style     | 自定义样式         | ---     | React.CSSProperties                            |
-| disabled  | 按钮禁用状态       | false   | boolean                                        |
-| ghost     | 幽灵按钮，背景透明 | false   | boolean                                        |
-| size      | 按钮尺寸大小       | middle  | "large" \| "middle" \| "small"                 |
-| icon      | 自定义按钮图标     | ---     | string                                         |
-| onClick   | 点击按钮时的回调   | ---     | React.MouseEventHandler                        |
+| API        | 说明                     | 默认值  | 类型                                           |
+| ---------- | ------------------------ | ------- | ---------------------------------------------- |
+| type       | button类型               | default | "default" \| "primary" \| "dashed" \| "danger" |
+| className  | 自定义类名               | ---     | string                                         |
+| style      | 自定义样式               | ---     | React.CSSProperties                            |
+| disabled   | 按钮禁用状态             | false   | boolean                                        |
+| ghost      | 幽灵按钮，背景透明       | false   | boolean                                        |
+| size       | 按钮尺寸大小             | middle  | "large" \| "middle" \| "small"                 |
+| icon       | 自定义按钮图标           | ---     | string                                         |
+| onClick    | 点击按钮时的回调         | ---     | React.MouseEventHandler                        |
+| buttonType | 设置原生button的type属性 | button  | "button" \|"submit" \|"reset"                  |
 
 根据上述要求，那么就可以这样设计 Props ：
 
@@ -32,6 +33,7 @@ interface Props {
 	size?: "large" | "middle" | "small";
 	icon?: string;
 	onClick?: React.MouseEventHandler;
+	buttonType?: "button" | "submit" | "reset"
 }
 
 Button.defaultProps = {
@@ -39,6 +41,7 @@ Button.defaultProps = {
 	disabled: false,
 	ghost: false,
 	size: "middle",
+	buttonType: "button"
 };
 ````
 
