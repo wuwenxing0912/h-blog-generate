@@ -2,7 +2,7 @@
 title: 实现一个基于React的Input组件
 date: 2021-07-03 16:10:46
 tags: ["React", "Input"]
-categories: [JavaScript, TypeScript]
+categories: [React, TypeScript]
 ---
 
 # API

@@ -2,7 +2,7 @@
 title: 实现一个基于React的Button组件
 date: 2021-06-20 17:18:44
 tags: ["React", "Button"]
-categories: [JavaScript, TypeScript]
+categories: [React, TypeScript]
 ---
 
 # API

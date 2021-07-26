@@ -2,7 +2,7 @@
 title: 实现一个基于React的Modal组件
 date: 2021-07-12 18:45:46
 tags: ["React", "Modal"]
-categories: [JavaScript, TypeScript]
+categories: [React, TypeScript]
 ---
 
 # API
