@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="React,Button," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="API在开始编写 Button组件 之前，首先构思 Button 需要提供的 API，然后按照 API 的要求着手实现。API 具体如下：    API 说明 默认值 类型    type button类型 default “default” | “primary” | “dashed” | “danger”   className 自定义类名 — string   style 自定义样式 — R">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实现一个基于React的Button组件">
+<meta property="og:url" content="http://example.com/2021/06/20/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EReact%E7%9A%84Button%E7%BB%84%E4%BB%B6/index.html">
+<meta property="og:site_name" content="小吴的Blog">
+<meta property="og:description" content="API在开始编写 Button组件 之前，首先构思 Button 需要提供的 API，然后按照 API 的要求着手实现。API 具体如下：    API 说明 默认值 类型    type button类型 default “default” | “primary” | “dashed” | “danger”   className 自定义类名 — string   style 自定义样式 — R">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/2021/06/20/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EReact%E7%9A%84Button%E7%BB%84%E4%BB%B6/type.jpg">
+<meta property="og:image" content="http://example.com/2021/06/20/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EReact%E7%9A%84Button%E7%BB%84%E4%BB%B6/disabled.jpg">
+<meta property="og:image" content="http://example.com/2021/06/20/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EReact%E7%9A%84Button%E7%BB%84%E4%BB%B6/ghost.jpg">
+<meta property="og:image" content="http://example.com/2021/06/20/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EReact%E7%9A%84Button%E7%BB%84%E4%BB%B6/size.jpg">
+<meta property="og:image" content="http://example.com/2021/06/20/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EReact%E7%9A%84Button%E7%BB%84%E4%BB%B6/icon.jpg">
+<meta property="article:published_time" content="2021-06-20T09:18:44.000Z">
+<meta property="article:modified_time" content="2021-07-26T09:52:04.998Z">
+<meta property="article:author" content="xing">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="Button">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/06/20/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EReact%E7%9A%84Button%E7%BB%84%E4%BB%B6/type.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2021/06/20/实现一个基于React的Button组件/"/>
+
+
+
+
+
+  <title>实现一个基于React的Button组件 | 小吴的Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小吴的Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/20/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EReact%E7%9A%84Button%E7%BB%84%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小吴的Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">实现一个基于React的Button组件</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-20T17:18:44+08:00">
+                2021-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/React/" itemprop="url" rel="index">
+                    <span itemprop="name">React</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/React/TypeScript/" itemprop="url" rel="index">
+                    <span itemprop="name">TypeScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="API"><a href="#API" class="headerlink" title="API"></a>API</h1><p>在开始编写 <a target="_blank" rel="noopener" href="https://wuwenxing0912.github.io/react-ui-lib/home.html">Button组件</a> 之前，首先构思 Button 需要提供的 API，然后按照 API 的要求着手实现。API 具体如下：</p>
+<table>
+<thead>
+<tr>
+<th>API</th>
+<th>说明</th>
+<th>默认值</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>type</td>
+<td>button类型</td>
+<td>default</td>
+<td>“default” | “primary” | “dashed” | “danger”</td>
+</tr>
+<tr>
+<td>className</td>
+<td>自定义类名</td>
+<td>—</td>
+<td>string</td>
+</tr>
+<tr>
+<td>style</td>
+<td>自定义样式</td>
+<td>—</td>
+<td>React.CSSProperties</td>
+</tr>
+<tr>
+<td>disabled</td>
+<td>按钮禁用状态</td>
+<td>false</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>ghost</td>
+<td>幽灵按钮，背景透明</td>
+<td>false</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>size</td>
+<td>按钮尺寸大小</td>
+<td>middle</td>
+<td>“large” | “middle” | “small”</td>
+</tr>
+<tr>
+<td>icon</td>
+<td>自定义按钮图标</td>
+<td>—</td>
+<td>string</td>
+</tr>
+<tr>
+<td>onClick</td>
+<td>点击按钮时的回调</td>
+<td>—</td>
+<td>React.MouseEventHandler</td>
+</tr>
+<tr>
+<td>buttonType</td>
+<td>设置原生button的type属性</td>
+<td>button</td>
+<td>“button” |”submit” |”reset”</td>
+</tr>
+</tbody></table>
+<p>根据上述要求，那么就可以这样设计 Props ：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> Props &#123;</span><br><span class="line">	<span class="keyword">type</span>?: <span class="string">&quot;default&quot;</span> | <span class="string">&quot;primary&quot;</span> | <span class="string">&quot;dashed&quot;</span> | <span class="string">&quot;danger&quot;</span>;</span><br><span class="line">	className?: <span class="built_in">string</span>;</span><br><span class="line">	style?: React.CSSProperties;</span><br><span class="line">	disabled?: <span class="built_in">boolean</span>;</span><br><span class="line">	ghost?: <span class="built_in">boolean</span>;</span><br><span class="line">	size?: <span class="string">&quot;large&quot;</span> | <span class="string">&quot;middle&quot;</span> | <span class="string">&quot;small&quot;</span>;</span><br><span class="line">	icon?: <span class="built_in">string</span>;</span><br><span class="line">	onClick?: React.MouseEventHandler;</span><br><span class="line">	buttonType?: <span class="string">&quot;button&quot;</span> | <span class="string">&quot;submit&quot;</span> | <span class="string">&quot;reset&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Button.defaultProps = &#123;</span><br><span class="line">	<span class="attr">type</span>: <span class="string">&quot;default&quot;</span>,</span><br><span class="line">	<span class="attr">disabled</span>: <span class="literal">false</span>,</span><br><span class="line">	<span class="attr">ghost</span>: <span class="literal">false</span>,</span><br><span class="line">	<span class="attr">size</span>: <span class="string">&quot;middle&quot;</span>,</span><br><span class="line">	<span class="attr">buttonType</span>: <span class="string">&quot;button&quot;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h1 id="type"><a href="#type" class="headerlink" title="type"></a>type</h1><p>button 共有4种类型分别为：default(默认按钮)、primary(主题按钮)、dashed(虚线按钮)和danger(危险按钮)。type 为可选参数，默认值为 default。每当传入 type 时，就相应的给 button 加上对应的类名，根据不同的类 button 的显示不同的样式。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Button: React.FunctionComponent&lt;Props&gt; = <span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">const</span> &#123; <span class="keyword">type</span>, ...rest &#125; = props;</span><br><span class="line">	<span class="keyword">const</span> buttonClassName = classes(<span class="string">&quot;x-button&quot;</span>, <span class="keyword">type</span>); <span class="comment">//classes 能够返回形如 x-button type 的类</span></span><br><span class="line">	<span class="keyword">return</span> (</span><br><span class="line">		<span class="xml"><span class="tag">&lt;<span class="name">Fragment</span>&gt;</span></span></span><br><span class="line"><span class="xml">		    <span class="tag">&lt;<span class="name">button</span> <span class="attr">className</span>=<span class="string">&#123;buttonClassName&#125;</span> &#123;<span class="attr">...rest</span>&#125;&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">		<span class="tag">&lt;/<span class="name">Fragment</span>&gt;</span></span></span><br><span class="line">	);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>设置 button type 代码如下：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;Button <span class="keyword">type</span>=<span class="string">&quot;default&quot;</span>&gt;Default&lt;/Button&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">Button</span> <span class="attr">type</span>=<span class="string">&quot;primary&quot;</span>&gt;</span>Primary<span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">Button</span> <span class="attr">type</span>=<span class="string">&quot;dashed&quot;</span>&gt;</span>Dashed<span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">Button</span> <span class="attr">type</span>=<span class="string">&quot;danger&quot;</span>&gt;</span>Danger<span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<img src="/2021/06/20/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EReact%E7%9A%84Button%E7%BB%84%E4%BB%B6/type.jpg" class title="type">
+
+<h1 id="disabled"><a href="#disabled" class="headerlink" title="disabled"></a>disabled</h1><p>disabled 是可选参数，类型是 boolean，默认值为 false。当设置为 true 时，给 button 加上 disabled 类名，此时 button 为禁用状态。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Button: React.FunctionComponent&lt;Props&gt; = <span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">const</span> &#123; <span class="keyword">type</span>, ...rest &#125; = props;</span><br><span class="line">	<span class="keyword">const</span> disabled = props.disabled ? <span class="string">&quot;disabled&quot;</span> : <span class="literal">undefined</span>;<span class="comment">//disabled 为 true 时，加上 disabled 类</span></span><br><span class="line">	<span class="keyword">const</span> buttonClassName = classes(<span class="string">&quot;x-button&quot;</span>, <span class="keyword">type</span>, disabled);</span><br><span class="line">	<span class="keyword">return</span> (</span><br><span class="line">		<span class="xml"><span class="tag">&lt;<span class="name">Fragment</span>&gt;</span></span></span><br><span class="line"><span class="xml">		    <span class="tag">&lt;<span class="name">button</span> <span class="attr">className</span>=<span class="string">&#123;buttonClassName&#125;</span> &#123;<span class="attr">...rest</span>&#125;&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">		<span class="tag">&lt;/<span class="name">Fragment</span>&gt;</span></span></span><br><span class="line">	);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>设置 disabled 代码如下：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;Button <span class="keyword">type</span>=<span class="string">&quot;default&quot;</span> disabled=&#123;<span class="literal">true</span>&#125;&gt;Default&lt;/Button&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">Button</span> <span class="attr">type</span>=<span class="string">&quot;primary&quot;</span> <span class="attr">disabled</span>=<span class="string">&#123;true&#125;</span>&gt;</span>Primary<span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">Button</span> <span class="attr">type</span>=<span class="string">&quot;dashed&quot;</span> <span class="attr">disabled</span>=<span class="string">&#123;true&#125;</span>&gt;</span>Dashed<span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">Button</span> <span class="attr">type</span>=<span class="string">&quot;danger&quot;</span> <span class="attr">disabled</span>=<span class="string">&#123;true&#125;</span>&gt;</span>Danger<span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<img src="/2021/06/20/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EReact%E7%9A%84Button%E7%BB%84%E4%BB%B6/disabled.jpg" class title="disabled">
+
+<h1 id="ghost"><a href="#ghost" class="headerlink" title="ghost"></a>ghost</h1><p>ghost 是可选参数，类型是 boolean，默认值为 false。当设置为 true 时，给 button 加上 ghost 类名，此时 button 背景变为透明。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Button: React.FunctionComponent&lt;Props&gt; = <span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">const</span> &#123; <span class="keyword">type</span>, ...rest &#125; = props;</span><br><span class="line">	<span class="keyword">const</span> ghost = props.ghost ? <span class="string">&quot;ghost&quot;</span> : <span class="literal">undefined</span>;</span><br><span class="line">	<span class="keyword">const</span> buttonClassName = classes(<span class="string">&quot;x-button&quot;</span>, <span class="keyword">type</span>, ghost);</span><br><span class="line">	<span class="keyword">return</span> (</span><br><span class="line">		<span class="xml"><span class="tag">&lt;<span class="name">Fragment</span>&gt;</span></span></span><br><span class="line"><span class="xml">		    <span class="tag">&lt;<span class="name">button</span> <span class="attr">className</span>=<span class="string">&#123;buttonClassName&#125;</span> &#123;<span class="attr">...rest</span>&#125;&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">		<span class="tag">&lt;/<span class="name">Fragment</span>&gt;</span></span></span><br><span class="line">	);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>设置 ghost 代码如下：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;Button <span class="keyword">type</span>=<span class="string">&quot;default&quot;</span> ghost=&#123;<span class="literal">true</span>&#125;&gt;Default&lt;/Button&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">Button</span> <span class="attr">type</span>=<span class="string">&quot;primary&quot;</span> <span class="attr">ghost</span>=<span class="string">&#123;true&#125;</span>&gt;</span>Primary<span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">Button</span> <span class="attr">type</span>=<span class="string">&quot;dashed&quot;</span> <span class="attr">ghost</span>=<span class="string">&#123;true&#125;</span>&gt;</span>Dashed<span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">Button</span> <span class="attr">type</span>=<span class="string">&quot;danger&quot;</span> <span class="attr">ghost</span>=<span class="string">&#123;true&#125;</span>&gt;</span>Danger<span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<img src="/2021/06/20/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EReact%E7%9A%84Button%E7%BB%84%E4%BB%B6/ghost.jpg" class title="ghost">
+
+<h1 id="size"><a href="#size" class="headerlink" title="size"></a>size</h1><p>size 共有3种分别为：large(大)、middle(中)和small(小)。size为可选参数，默认值为 middle。每当传入 size 时，就相应的给 button 加上对应的类名，根据不同的类 button 的显示不同的样式。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Button: React.FunctionComponent&lt;Props&gt; = <span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">const</span> &#123; <span class="keyword">type</span>, ...rest &#125; = props;</span><br><span class="line">	<span class="keyword">const</span> size = props.size ? props.size : <span class="string">&quot;middle&quot;</span>;</span><br><span class="line">	<span class="keyword">const</span> onClick = <span class="function">(<span class="params">e: React.MouseEvent</span>) =&gt;</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (disabled) <span class="keyword">return</span> e.preventDefault(); <span class="comment">//当 disabled 为 true 时， 阻止点击事件。</span></span><br><span class="line">		props.onClick &amp;&amp; props.onClick();</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="keyword">const</span> buttonClassName = classes(<span class="string">&quot;x-button&quot;</span>, <span class="keyword">type</span>, size);</span><br><span class="line">	<span class="keyword">return</span> (</span><br><span class="line">		<span class="xml"><span class="tag">&lt;<span class="name">Fragment</span>&gt;</span></span></span><br><span class="line"><span class="xml">		    <span class="tag">&lt;<span class="name">button</span> <span class="attr">className</span>=<span class="string">&#123;buttonClassName&#125;</span> <span class="attr">onClick</span>=<span class="string">&#123;onClick&#125;</span> &#123;<span class="attr">...rest</span>&#125;&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">		<span class="tag">&lt;/<span class="name">Fragment</span>&gt;</span></span></span><br><span class="line">	);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>设置 size 代码如下：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [size, setSize] = useState(<span class="string">&quot;middle&quot;</span>); <span class="comment">//初始化 size 为 middle</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">Button</span> <span class="attr">type</span>=<span class="string">&quot;default&quot;</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> &#123;setSize(&quot;large&quot;)&#125;&#125;&gt;Default<span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span> <span class="comment">//点击时改变 size 的值为 large</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">Button</span> <span class="attr">type</span>=<span class="string">&quot;primary&quot;</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> &#123;setSize(&quot;middle&quot;)&#125;&#125;&gt;Primary<span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span> <span class="comment">//点击时改变 size 的值为 middle</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">Button</span> <span class="attr">type</span>=<span class="string">&quot;dashed&quot;</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> &#123;setSize(&quot;middle&quot;)&#125;&#125;&gt;Dashed<span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span> <span class="comment">//点击时改变 size 的值为 middle</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">Button</span> <span class="attr">type</span>=<span class="string">&quot;danger&quot;</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> &#123;setSize(&quot;small&quot;)&#125;&#125;&gt;Danger<span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span> <span class="comment">//点击时改变 size 的值为 small</span></span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<img src="/2021/06/20/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EReact%E7%9A%84Button%E7%BB%84%E4%BB%B6/size.jpg" class title="size">
+
+<h1 id="icon"><a href="#icon" class="headerlink" title="icon"></a>icon</h1><p>icon 是可选参数，类型是 string。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Button: React.FunctionComponent&lt;Props&gt; = <span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">const</span> &#123; <span class="keyword">type</span>, ...rest &#125; = props;</span><br><span class="line">	<span class="keyword">const</span> icon = props.icon &amp;&amp; <span class="xml"><span class="tag">&lt;<span class="name">Icon</span> <span class="attr">name</span>=<span class="string">&#123;props.icon&#125;</span>&gt;</span><span class="tag">&lt;/<span class="name">Icon</span>&gt;</span></span>;<span class="comment">//使用 Icon 组件，name 匹配 icon 库中的icon</span></span><br><span class="line">	<span class="keyword">const</span> buttonClassName = classes(<span class="string">&quot;x-button&quot;</span>, <span class="keyword">type</span>);</span><br><span class="line">	<span class="keyword">return</span> (</span><br><span class="line">		<span class="xml"><span class="tag">&lt;<span class="name">Fragment</span>&gt;</span></span></span><br><span class="line"><span class="xml">		    <span class="tag">&lt;<span class="name">button</span> <span class="attr">className</span>=<span class="string">&#123;buttonClassName&#125;</span> &#123;<span class="attr">...rest</span>&#125;&gt;</span></span></span><br><span class="line"><span class="xml">			    &#123;icon&#125;</span></span><br><span class="line"><span class="xml">		    <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">		<span class="tag">&lt;/<span class="name">Fragment</span>&gt;</span></span></span><br><span class="line">	);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>设置 icon 代码如下：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;Button <span class="keyword">type</span>=<span class="string">&quot;default&quot;</span> icon=<span class="string">&quot;modify&quot;</span>&gt;Default&lt;/Button&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">Button</span> <span class="attr">type</span>=<span class="string">&quot;primary&quot;</span> <span class="attr">icon</span>=<span class="string">&quot;modify&quot;</span>&gt;</span>Primary<span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">Button</span> <span class="attr">type</span>=<span class="string">&quot;dashed&quot;</span> <span class="attr">icon</span>=<span class="string">&quot;modify&quot;</span>&gt;</span>Dashed<span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">Button</span> <span class="attr">type</span>=<span class="string">&quot;danger&quot;</span> <span class="attr">icon</span>=<span class="string">&quot;modify&quot;</span>&gt;</span>Danger<span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<img src="/2021/06/20/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EReact%E7%9A%84Button%E7%BB%84%E4%BB%B6/icon.jpg" class title="icon">
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/React/" rel="tag"># React</a>
+          
+            <a href="/tags/Button/" rel="tag"># Button</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/06/15/%E6%90%AD%E5%BB%BA%E5%9F%BA%E4%BA%8EHexo5%E5%8D%9A%E5%AE%A2%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/" rel="next" title="搭建基于Hexo5博客遇到的问题">
+                <i class="fa fa-chevron-left"></i> 搭建基于Hexo5博客遇到的问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/07/03/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EReact%E7%9A%84Input%E7%BB%84%E4%BB%B6/" rel="prev" title="实现一个基于React的Input组件">
+                实现一个基于React的Input组件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <!--<a href="/archives/%7C%7C%20archive">-->
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#API"><span class="nav-text">API</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#type"><span class="nav-text">type</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#disabled"><span class="nav-text">disabled</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ghost"><span class="nav-text">ghost</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#size"><span class="nav-text">size</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#icon"><span class="nav-text">icon</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xing</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

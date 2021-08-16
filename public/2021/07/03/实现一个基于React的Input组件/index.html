@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="React,Input," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="API本次编写的 Input组件 没有完全实现原生的 input 输入框，部分 Input  API 如下：    API 说明 是否可选 默认值 类型    id 输入框的id 是 — string   placeholder 输入框的placeholder 是 — string   className 自定义类名 是 — string   style 自定义样式 是 — React.CSSPr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实现一个基于React的Input组件">
+<meta property="og:url" content="http://example.com/2021/07/03/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EReact%E7%9A%84Input%E7%BB%84%E4%BB%B6/index.html">
+<meta property="og:site_name" content="小吴的Blog">
+<meta property="og:description" content="API本次编写的 Input组件 没有完全实现原生的 input 输入框，部分 Input  API 如下：    API 说明 是否可选 默认值 类型    id 输入框的id 是 — string   placeholder 输入框的placeholder 是 — string   className 自定义类名 是 — string   style 自定义样式 是 — React.CSSPr">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/2021/07/03/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EReact%E7%9A%84Input%E7%BB%84%E4%BB%B6/disabled.jpg">
+<meta property="og:image" content="http://example.com/2021/07/03/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EReact%E7%9A%84Input%E7%BB%84%E4%BB%B6/pre-suf.jpg">
+<meta property="og:image" content="http://example.com/2021/07/03/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EReact%E7%9A%84Input%E7%BB%84%E4%BB%B6/error.jpg">
+<meta property="og:image" content="http://example.com/2021/07/03/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EReact%E7%9A%84Input%E7%BB%84%E4%BB%B6/before-after.jpg">
+<meta property="article:published_time" content="2021-07-03T08:10:46.000Z">
+<meta property="article:modified_time" content="2021-07-26T09:51:58.271Z">
+<meta property="article:author" content="xing">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="Input">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/07/03/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EReact%E7%9A%84Input%E7%BB%84%E4%BB%B6/disabled.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2021/07/03/实现一个基于React的Input组件/"/>
+
+
+
+
+
+  <title>实现一个基于React的Input组件 | 小吴的Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小吴的Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/03/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EReact%E7%9A%84Input%E7%BB%84%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小吴的Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">实现一个基于React的Input组件</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-03T16:10:46+08:00">
+                2021-07-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/React/" itemprop="url" rel="index">
+                    <span itemprop="name">React</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/React/TypeScript/" itemprop="url" rel="index">
+                    <span itemprop="name">TypeScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="API"><a href="#API" class="headerlink" title="API"></a>API</h1><p>本次编写的 <a target="_blank" rel="noopener" href="https://wuwenxing0912.github.io/react-ui-lib/home.html#/input">Input组件</a> 没有完全实现原生的 input 输入框，部分 Input  API 如下：</p>
+<table>
+<thead>
+<tr>
+<th>API</th>
+<th>说明</th>
+<th>是否可选</th>
+<th>默认值</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>id</td>
+<td>输入框的id</td>
+<td>是</td>
+<td>—</td>
+<td>string</td>
+</tr>
+<tr>
+<td>placeholder</td>
+<td>输入框的placeholder</td>
+<td>是</td>
+<td>—</td>
+<td>string</td>
+</tr>
+<tr>
+<td>className</td>
+<td>自定义类名</td>
+<td>是</td>
+<td>—</td>
+<td>string</td>
+</tr>
+<tr>
+<td>style</td>
+<td>自定义样式</td>
+<td>是</td>
+<td>—</td>
+<td>React.CSSProperties</td>
+</tr>
+<tr>
+<td>value</td>
+<td>输入框的value</td>
+<td>是</td>
+<td>—</td>
+<td>string</td>
+</tr>
+<tr>
+<td>disabled</td>
+<td>输入框禁用状态</td>
+<td>是</td>
+<td>false</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>prefix</td>
+<td>输入框前缀图标</td>
+<td>是</td>
+<td>—</td>
+<td>string</td>
+</tr>
+<tr>
+<td>suffix</td>
+<td>输入框后缀图标</td>
+<td>是</td>
+<td>—</td>
+<td>string</td>
+</tr>
+<tr>
+<td>error</td>
+<td>输入框后缀错误状态</td>
+<td>是</td>
+<td>false</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>addOnBefore</td>
+<td>输入框前缀标签</td>
+<td>是</td>
+<td>—</td>
+<td>string</td>
+</tr>
+<tr>
+<td>addOnAfter</td>
+<td>输入框后缀标签</td>
+<td>是</td>
+<td>—</td>
+<td>string</td>
+</tr>
+</tbody></table>
+<p>根据上述要求，那么就可以这样设计 Props ：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> Props <span class="keyword">extends</span> React.InputHTMLAttributes&lt;HTMLInputElement&gt; &#123;</span><br><span class="line">	id?: <span class="built_in">string</span>;</span><br><span class="line">	placeholder?: <span class="built_in">string</span>;</span><br><span class="line">	className?: <span class="built_in">string</span>;</span><br><span class="line">	style?: React.CSSProperties;</span><br><span class="line">	value?: <span class="built_in">string</span>;</span><br><span class="line">	disabled?: <span class="built_in">boolean</span>;</span><br><span class="line">	prefix?: <span class="built_in">string</span>;</span><br><span class="line">	suffix?: <span class="built_in">string</span>;</span><br><span class="line">	error?: <span class="built_in">boolean</span>;</span><br><span class="line">	addOnBefore?: <span class="built_in">string</span>;</span><br><span class="line">	addOnAfter?: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line">Input.defaultProps = &#123;</span><br><span class="line">	<span class="attr">disabled</span>: <span class="literal">false</span>,</span><br><span class="line">	<span class="attr">error</span>: <span class="literal">false</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h1 id="disabled"><a href="#disabled" class="headerlink" title="disabled"></a>disabled</h1><p>disabled 是可选参数，类型是 boolean，默认值为 false。当设置为 true 时，input 设置为 disabled，此时 input  为禁用状态。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Input: React.FunctionComponent&lt;Props&gt; = <span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">const</span> &#123; disabled, ...rest &#125; = props;</span><br><span class="line">	<span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">input</span> <span class="attr">className</span>=<span class="string">&#123;classes(</span>&quot;<span class="attr">x-input</span>&quot;)&#125; <span class="attr">disabled</span>=<span class="string">&#123;disabled&#125;</span> &#123;<span class="attr">...rest</span>&#125; /&gt;</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>设置 disabled 代码如下：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Input disabled=&#123;<span class="literal">true</span>&#125; placeholder=<span class="string">&quot;disabled&quot;</span>&gt;&lt;/Input&gt;</span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<img src="/2021/07/03/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EReact%E7%9A%84Input%E7%BB%84%E4%BB%B6/disabled.jpg" class title="disabled">
+
+
+
+<h1 id="prefix-amp-suffix"><a href="#prefix-amp-suffix" class="headerlink" title="prefix &amp; suffix"></a>prefix &amp; suffix</h1><p>prefix/suffix 是可选参数，类型是 string。当传入 prefix/suffix 时，给 Input 嵌入 Icon 组件，显示对应的图标。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Input: React.FunctionComponent&lt;Props&gt; = <span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">const</span> &#123; prefix, suffix, ...rest &#125; = props;</span><br><span class="line">	<span class="keyword">const</span> prefixClassName = prefix &amp;&amp; <span class="string">&quot;prefix&quot;</span>;</span><br><span class="line">	<span class="keyword">const</span> suffixClassName = suffix &amp;&amp; <span class="string">&quot;suffix&quot;</span>;</span><br><span class="line">     <span class="comment">//classes 能够返回形如 x-input-wrapper prefix suffix 的类</span></span><br><span class="line">	<span class="keyword">const</span> inputWrapperClassName = classes(<span class="string">&quot;x-input-wrapper&quot;</span>, prefixClassName, suffixClassName);</span><br><span class="line">	<span class="keyword">return</span> (</span><br><span class="line">		<span class="xml"><span class="tag">&lt;<span class="name">span</span> <span class="attr">className</span>=<span class="string">&#123;inputWrapperClassName&#125;</span>&gt;</span></span></span><br><span class="line"><span class="xml">			&#123;prefix ? (</span></span><br><span class="line"><span class="xml">				<span class="tag">&lt;<span class="name">span</span> <span class="attr">className</span>=<span class="string">&quot;prefix-wrapper&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">					<span class="tag">&lt;<span class="name">Icon</span> <span class="attr">name</span>=<span class="string">&#123;prefix&#125;</span> <span class="attr">className</span>=<span class="string">&quot;prefix-icon&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="xml">				<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line"><span class="xml">			) : &quot;&quot;&#125;</span></span><br><span class="line"><span class="xml">			<span class="tag">&lt;<span class="name">input</span> <span class="attr">className</span>=<span class="string">&#123;classes(</span>&quot;<span class="attr">x-input</span>&quot;)&#125; &#123;<span class="attr">...rest</span>&#125; /&gt;</span></span></span><br><span class="line"><span class="xml">			&#123;suffix ? (</span></span><br><span class="line"><span class="xml">				<span class="tag">&lt;<span class="name">span</span> <span class="attr">className</span>=<span class="string">&quot;suffix-wrapper&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">					<span class="tag">&lt;<span class="name">Icon</span> <span class="attr">name</span>=<span class="string">&#123;suffix&#125;</span> <span class="attr">className</span>=<span class="string">&quot;suffix-icon&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="xml">				<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line"><span class="xml">			) : &quot;&quot;&#125;</span></span><br><span class="line"><span class="xml">		<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line">	);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>设置 prefix/suffix 代码如下：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;Input prefix=<span class="string">&quot;username&quot;</span> placeholder=<span class="string">&quot;username&quot;</span>&gt;&lt;/Input&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">Input</span> <span class="attr">suffix</span>=<span class="string">&quot;password&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;password&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">Input</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<img src="/2021/07/03/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EReact%E7%9A%84Input%E7%BB%84%E4%BB%B6/pre-suf.jpg" class title="prefix&#x2F;suffix">
+
+<h1 id="error"><a href="#error" class="headerlink" title="error"></a>error</h1><p>error 是可选参数，类型是 boolean，默认值为 false。当设置为 true 时，给 input 加上 error 类名。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Input: React.FunctionComponent&lt;Props&gt; = <span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">const</span> &#123; error, ...rest &#125; = props;</span><br><span class="line">	<span class="keyword">const</span> errorClassName = error ? <span class="string">&quot;error&quot;</span> : <span class="string">&quot;&quot;</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">input</span> <span class="attr">className</span>=<span class="string">&#123;classes(</span>&quot;<span class="attr">x-input</span>&quot;, <span class="attr">errorClassName</span>)&#125; &#123;<span class="attr">...rest</span>&#125; /&gt;</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>设置 error 代码如下：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Input error=&#123;<span class="literal">true</span>&#125; placeholder=<span class="string">&quot;error&quot;</span>&gt;&lt;/Input&gt;</span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<img src="/2021/07/03/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EReact%E7%9A%84Input%E7%BB%84%E4%BB%B6/error.jpg" class title="error">
+
+<h1 id="before-amp-after"><a href="#before-amp-after" class="headerlink" title="before &amp; after"></a>before &amp; after</h1><p>before/after 是可选参数，类型是 string。当传入 before/after  时，给 Input 添加前缀/后缀块。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Input: React.FunctionComponent&lt;Props&gt; = <span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">const</span> &#123; addOnBefore, addOnAfter, ...rest &#125; = props;</span><br><span class="line">	<span class="keyword">const</span> addOnAfterClassName = addOnAfter ? <span class="string">&quot;after-text&quot;</span> : <span class="string">&quot;&quot;</span>;</span><br><span class="line">	<span class="keyword">return</span> (</span><br><span class="line">		<span class="xml"><span class="tag">&lt;<span class="name">span</span>&gt;</span></span></span><br><span class="line"><span class="xml">			&#123;addOnBefore ? <span class="tag">&lt;<span class="name">span</span> <span class="attr">className</span>=<span class="string">&quot;before-text&quot;</span>&gt;</span>&#123;addOnBefore&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span> : &quot;&quot;&#125;</span></span><br><span class="line"><span class="xml">			<span class="tag">&lt;<span class="name">input</span> <span class="attr">className</span>=<span class="string">&#123;classes(</span>&quot;<span class="attr">x-input</span>&quot;, <span class="attr">addOnAfterClassName</span>)&#125; &#123;<span class="attr">...rest</span>&#125; /&gt;</span></span></span><br><span class="line"><span class="xml">			&#123;addOnAfter ? <span class="tag">&lt;<span class="name">span</span> <span class="attr">className</span>=<span class="string">&quot;after-text&quot;</span>&gt;</span>&#123;addOnAfter&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span> : &quot;&quot;&#125;</span></span><br><span class="line"><span class="xml">		<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line">	);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>设置 before/after 代码如下：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;Input addOnBefore=<span class="string">&quot;Before&quot;</span> addOnAfter=<span class="string">&quot;After&quot;</span> placeholder=<span class="string">&quot;placeholder&quot;</span>&gt;&lt;/Input&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">Input</span> <span class="attr">addOnBefore</span>=<span class="string">&quot;Before&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;placeholder&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">Input</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">Input</span> <span class="attr">addOnAfter</span>=<span class="string">&quot;After&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;placeholder&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">Input</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<img src="/2021/07/03/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EReact%E7%9A%84Input%E7%BB%84%E4%BB%B6/before-after.jpg" class title="before&#x2F;after">
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/React/" rel="tag"># React</a>
+          
+            <a href="/tags/Input/" rel="tag"># Input</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/06/20/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EReact%E7%9A%84Button%E7%BB%84%E4%BB%B6/" rel="next" title="实现一个基于React的Button组件">
+                <i class="fa fa-chevron-left"></i> 实现一个基于React的Button组件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/07/12/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EReact%E7%9A%84Modal%E7%BB%84%E4%BB%B6/" rel="prev" title="实现一个基于React的Modal组件">
+                实现一个基于React的Modal组件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <!--<a href="/archives/%7C%7C%20archive">-->
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#API"><span class="nav-text">API</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#disabled"><span class="nav-text">disabled</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#prefix-amp-suffix"><span class="nav-text">prefix &amp; suffix</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#error"><span class="nav-text">error</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#before-amp-after"><span class="nav-text">before &amp; after</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xing</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

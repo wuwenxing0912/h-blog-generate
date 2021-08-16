@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="webpack," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一、安装1、首先进行初始化，得到合法的package.json；1npm init -y  2、进入webpack官方网站，查看安装要点，这里选择的webpack版本是3.12.0；1npm instasll -save-dev webpack@3  3、在当前目录下创建webpack.config.js文件，文件内容如下：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpack的安装与配置">
+<meta property="og:url" content="http://example.com/2018/07/02/webpack%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="小吴的Blog">
+<meta property="og:description" content="一、安装1、首先进行初始化，得到合法的package.json；1npm init -y  2、进入webpack官方网站，查看安装要点，这里选择的webpack版本是3.12.0；1npm instasll -save-dev webpack@3  3、在当前目录下创建webpack.config.js文件，文件内容如下：">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-07-01T17:05:28.000Z">
+<meta property="article:modified_time" content="2021-06-09T06:28:44.140Z">
+<meta property="article:author" content="xing">
+<meta property="article:tag" content="webpack">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2018/07/02/webpack的安装与配置/"/>
+
+
+
+
+
+  <title>webpack的安装与配置 | 小吴的Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小吴的Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/07/02/webpack%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小吴的Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">webpack的安装与配置</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-02T01:05:28+08:00">
+                2018-07-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Webpack/" itemprop="url" rel="index">
+                    <span itemprop="name">Webpack</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="一、安装"><a href="#一、安装" class="headerlink" title="一、安装"></a>一、安装</h1><h2 id="1、首先进行初始化，得到合法的package-json；"><a href="#1、首先进行初始化，得到合法的package-json；" class="headerlink" title="1、首先进行初始化，得到合法的package.json；"></a>1、首先进行初始化，得到合法的package.json；</h2><pre><code><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init -y</span><br></pre></td></tr></table></figure>
+</code></pre>
+<h2 id="2、进入webpack官方网站，查看安装要点，这里选择的webpack版本是3-12-0；"><a href="#2、进入webpack官方网站，查看安装要点，这里选择的webpack版本是3-12-0；" class="headerlink" title="2、进入webpack官方网站，查看安装要点，这里选择的webpack版本是3.12.0；"></a>2、进入webpack官方网站，查看安装要点，这里选择的webpack版本是3.12.0；</h2><pre><code><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm instasll -save-dev webpack@3</span><br></pre></td></tr></table></figure>
+</code></pre>
+<h2 id="3、在当前目录下创建webpack-config-js文件，文件内容如下："><a href="#3、在当前目录下创建webpack-config-js文件，文件内容如下：" class="headerlink" title="3、在当前目录下创建webpack.config.js文件，文件内容如下："></a>3、在当前目录下创建webpack.config.js文件，文件内容如下：</h2><span id="more"></span>
+<pre><code><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const path = require(&#x27;path&#x27;);</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">    entry: &#x27;./src/index.js&#x27;,</span><br><span class="line">    output: &#123;</span><br><span class="line">    filename: &#x27;main.js&#x27;,</span><br><span class="line">    path: path.resolve(__dirname, &#x27;dist&#x27;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</code></pre>
+<h2 id="4、保存文件后，在当前的src目录下创建一个index-js文件，然后执行如下命令："><a href="#4、保存文件后，在当前的src目录下创建一个index-js文件，然后执行如下命令：" class="headerlink" title="4、保存文件后，在当前的src目录下创建一个index.js文件，然后执行如下命令："></a>4、保存文件后，在当前的src目录下创建一个index.js文件，然后执行如下命令：</h2><pre><code><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx webpack</span><br></pre></td></tr></table></figure>
+</code></pre>
+<p>或者还可以执行 ./node-modules/.bin/webpack  命令执行后（未报错）查看当前的dist目录下是否有main.js,<br>如果有，则表示成功。</p>
+<h1 id="二、安装babel"><a href="#二、安装babel" class="headerlink" title="二、安装babel"></a>二、安装babel</h1><h2 id="1、使用babel把ES6或者更高版本的代码转换为兼容IE浏览器的JS代码"><a href="#1、使用babel把ES6或者更高版本的代码转换为兼容IE浏览器的JS代码" class="headerlink" title="1、使用babel把ES6或者更高版本的代码转换为兼容IE浏览器的JS代码"></a>1、使用babel把ES6或者更高版本的代码转换为兼容IE浏览器的JS代码</h2><p>这里使用的版本是：webpack 3.12.0 、babel-loader 7.1.4 、 babel 6.26.3 ，所以安装命令是：<br>    <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install babel-loader babel-core babel-preset-env webpack</span><br></pre></td></tr></table></figure></p>
+<h2 id="2、在webpack-config-js文件中加入如下代码："><a href="#2、在webpack-config-js文件中加入如下代码：" class="headerlink" title="2、在webpack.config.js文件中加入如下代码："></a>2、在webpack.config.js文件中加入如下代码：</h2><pre><code><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">module: &#123;</span><br><span class="line">    rules: [&#123;</span><br><span class="line">            test: /\.js$/,</span><br><span class="line">            exclude: /(node_modules|bower_components)/,</span><br><span class="line">            use: &#123;</span><br><span class="line">                loader: &#x27;babel-loader&#x27;,</span><br><span class="line">                options: &#123;</span><br><span class="line">                    presets: [&#x27;env&#x27;]</span><br><span class="line">                 &#125;</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</code></pre>
+<h2 id="3、在index-js文件中写入如下代码："><a href="#3、在index-js文件中写入如下代码：" class="headerlink" title="3、在index.js文件中写入如下代码："></a>3、在index.js文件中写入如下代码：</h2><pre><code><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let a = 1</span><br><span class="line">alert(a)</span><br></pre></td></tr></table></figure>
+</code></pre>
+<h2 id="4、执行-node-modules-bin-webpack-命令，查看dist目录下的main-js文件发现代码已经转换："><a href="#4、执行-node-modules-bin-webpack-命令，查看dist目录下的main-js文件发现代码已经转换：" class="headerlink" title="4、执行 ./node-modules/.bin/webpack  命令，查看dist目录下的main.js文件发现代码已经转换："></a>4、执行 ./node-modules/.bin/webpack  命令，查看dist目录下的main.js文件发现代码已经转换：</h2><pre><code><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var a = 1</span><br><span class="line">alert(a)</span><br></pre></td></tr></table></figure>
+</code></pre>
+<h1 id="三、存在多个模块时的处理"><a href="#三、存在多个模块时的处理" class="headerlink" title="三、存在多个模块时的处理"></a>三、存在多个模块时的处理</h1><h2 id="1、在src目录下新建js目录并且一次创建module-1-js、module-2-js-以及app-js文件；"><a href="#1、在src目录下新建js目录并且一次创建module-1-js、module-2-js-以及app-js文件；" class="headerlink" title="1、在src目录下新建js目录并且一次创建module_1.js、module_2.js 以及app.js文件；"></a>1、在src目录下新建js目录并且一次创建module_1.js、module_2.js 以及app.js文件；</h2><p>module_1.js代码如下：<br>    <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function f1() &#123;</span><br><span class="line">    let a = 1</span><br><span class="line">    console.log(a)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default f1 //当被引用时，默认就把f2传给他</span><br></pre></td></tr></table></figure><br>module_2.js代码如下：<br>    <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function f2() &#123;</span><br><span class="line">    let b = 2</span><br><span class="line">    console.log(b)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default f2 </span><br></pre></td></tr></table></figure></p>
+<h2 id="2、在app-js文件中引入module-1-js与module-2-js："><a href="#2、在app-js文件中引入module-1-js与module-2-js：" class="headerlink" title="2、在app.js文件中引入module_1.js与module_2.js："></a>2、在app.js文件中引入module_1.js与module_2.js：</h2><pre><code><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import module1 from &#x27;./module_1&#x27;</span><br><span class="line">import module2 from &#x27;./module_2&#x27;</span><br><span class="line"></span><br><span class="line">module1()</span><br><span class="line">module2() </span><br></pre></td></tr></table></figure>
+</code></pre>
+<h2 id="3、修改webpack-config-js文件部分代码如下："><a href="#3、修改webpack-config-js文件部分代码如下：" class="headerlink" title="3、修改webpack.config.js文件部分代码如下："></a>3、修改webpack.config.js文件部分代码如下：</h2><pre><code><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">entry: &#x27;./src/js/app.js&#x27;,</span><br><span class="line">output: &#123;</span><br><span class="line">    filename: &#x27;main.js&#x27;,</span><br><span class="line">    path: path.resolve(__dirname, &#x27;dist/js&#x27;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</code></pre>
+<h2 id="4、执行-node-modules-bin-webpack-命令，查看dist目录下的main-js文件，"><a href="#4、执行-node-modules-bin-webpack-命令，查看dist目录下的main-js文件，" class="headerlink" title="4、执行 ./node-modules/.bin/webpack  命令，查看dist目录下的main.js文件，"></a>4、执行 ./node-modules/.bin/webpack  命令，查看dist目录下的main.js文件，</h2><p>module_1.js与module_2.js中的代码已经被引用。</p>
+<h1 id="四、引入scss并转换为浏览器可以识别的css"><a href="#四、引入scss并转换为浏览器可以识别的css" class="headerlink" title="四、引入scss并转换为浏览器可以识别的css"></a>四、引入scss并转换为浏览器可以识别的css</h1><h2 id="1、在src目录下新建css目录并创建main-scss文件，且代码如下："><a href="#1、在src目录下新建css目录并创建main-scss文件，且代码如下：" class="headerlink" title="1、在src目录下新建css目录并创建main.scss文件，且代码如下："></a>1、在src目录下新建css目录并创建main.scss文件，且代码如下：</h2><pre><code><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">body &#123;</span><br><span class="line">    background: gray;</span><br><span class="line">    &gt;div &#123;</span><br><span class="line">        padding: 20px;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</code></pre>
+<h2 id="2、在src目录下创建index-html文件并且复制到dist目录下，在index-html中引入main-js文件；"><a href="#2、在src目录下创建index-html文件并且复制到dist目录下，在index-html中引入main-js文件；" class="headerlink" title="2、在src目录下创建index.html文件并且复制到dist目录下，在index.html中引入main.js文件；"></a>2、在src目录下创建index.html文件并且复制到dist目录下，在index.html中引入main.js文件；</h2><h2 id="3、执行安装命令："><a href="#3、执行安装命令：" class="headerlink" title="3、执行安装命令："></a>3、执行安装命令：</h2><pre><code><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install sass-loader node-sass webpack --save-dev</span><br><span class="line">npm install style-loader css-loader --save-dev</span><br></pre></td></tr></table></figure>
+</code></pre>
+<h2 id="4、修改webpack-config-js部分代码如下："><a href="#4、修改webpack-config-js部分代码如下：" class="headerlink" title="4、修改webpack.config.js部分代码如下："></a>4、修改webpack.config.js部分代码如下：</h2><pre><code><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    test: /\.scss$/,</span><br><span class="line">    use: [&#123;</span><br><span class="line">            loader: &quot;style-loader&quot; // creates style nodes from JS strings</span><br><span class="line">            &#125;, &#123;</span><br><span class="line">                loader: &quot;css-loader&quot; // translates CSS into CommonJS</span><br><span class="line">            &#125;, &#123;</span><br><span class="line">                loader: &quot;sass-loader&quot; // compiles Sass to CSS</span><br><span class="line">            &#125;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</code></pre>
+<h2 id="5、在app-js中引入main-scss文件："><a href="#5、在app-js中引入main-scss文件：" class="headerlink" title="5、在app.js中引入main.scss文件："></a>5、在app.js中引入main.scss文件：</h2><pre><code><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &#x27;../css/main.scss&#x27;</span><br></pre></td></tr></table></figure>
+</code></pre>
+<h2 id="6、执行-node-modules-bin-webpack-命令，打开服务-http-server-c-1，"><a href="#6、执行-node-modules-bin-webpack-命令，打开服务-http-server-c-1，" class="headerlink" title="6、执行 ./node-modules/.bin/webpack  命令，打开服务 http-server -c-1，"></a>6、执行 ./node-modules/.bin/webpack  命令，打开服务 http-server -c-1，</h2><p>在浏览器中输入127.0.0.1:8080，打开控制台。在Elements下发现多出了一个style标签，内容为：<br>    <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">body&#123;</span><br><span class="line">    background:grey;&#125;</span><br><span class="line">body &gt; div&#123;</span><br><span class="line">    padding:20px;&#125;</span><br></pre></td></tr></table></figure><br>scss文件成功传唤为浏览器可识别的css。</p>
+<h1 id="五、使用postcss-loader自动使css兼容"><a href="#五、使用postcss-loader自动使css兼容" class="headerlink" title="五、使用postcss-loader自动使css兼容"></a>五、使用postcss-loader自动使css兼容</h1><h2 id="1、执行安装命令："><a href="#1、执行安装命令：" class="headerlink" title="1、执行安装命令："></a>1、执行安装命令：</h2><pre><code><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D postcss-loader</span><br></pre></td></tr></table></figure>
+</code></pre>
+<h2 id="2、在安装过程中可能会出错，这里遇到的问题是缺少了-postcss-cssnext，所以再安装这部分："><a href="#2、在安装过程中可能会出错，这里遇到的问题是缺少了-postcss-cssnext，所以再安装这部分：" class="headerlink" title="2、在安装过程中可能会出错，这里遇到的问题是缺少了 postcss-cssnext，所以再安装这部分："></a>2、在安装过程中可能会出错，这里遇到的问题是缺少了 postcss-cssnext，所以再安装这部分：</h2><pre><code><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i postcss-cssnext</span><br></pre></td></tr></table></figure>
+</code></pre>
+<h2 id="3、在根目录下创建postcss-config-js文件，内容为："><a href="#3、在根目录下创建postcss-config-js文件，内容为：" class="headerlink" title="3、在根目录下创建postcss.config.js文件，内容为："></a>3、在根目录下创建postcss.config.js文件，内容为：</h2><pre><code><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">    plugins: &#123;</span><br><span class="line">        &#x27;postcss-cssnext&#x27;: &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</code></pre>
+<h2 id="4、修改main-scss文件内容为："><a href="#4、修改main-scss文件内容为：" class="headerlink" title="4、修改main.scss文件内容为："></a>4、修改main.scss文件内容为：</h2><pre><code><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">body&#123;</span><br><span class="line">    display:flex;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</code></pre>
+<h2 id="5、修改webpack-config-js部分代码如下："><a href="#5、修改webpack-config-js部分代码如下：" class="headerlink" title="5、修改webpack.config.js部分代码如下："></a>5、修改webpack.config.js部分代码如下：</h2><pre><code><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    test: /\.scss$/,</span><br><span class="line">    use: [&#123;</span><br><span class="line">            loader: &quot;style-loader&quot; // creates style nodes from JS strings</span><br><span class="line">            &#125;, &#123;</span><br><span class="line">                loader: &quot;css-loader&quot;, // translates CSS into CommonJS</span><br><span class="line">                options: &#123; importLoaders: 1 &#125;</span><br><span class="line">            &#125;, &#123;</span><br><span class="line">                loader: &#x27;postcss-loader&#x27;</span><br><span class="line">            &#125;, &#123;</span><br><span class="line">                loader: &quot;sass-loader&quot; // compiles Sass to CSS</span><br><span class="line">            &#125;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</code></pre>
+<h2 id="6、执行-node-modules-bin-webpack-命令，打开服务-http-server-c-1，-1"><a href="#6、执行-node-modules-bin-webpack-命令，打开服务-http-server-c-1，-1" class="headerlink" title="6、执行 ./node-modules/.bin/webpack  命令，打开服务 http-server -c-1，"></a>6、执行 ./node-modules/.bin/webpack  命令，打开服务 http-server -c-1，</h2><p>在浏览器中输入127.0.0.1:8080，打开控制台。style标签的内容为：<br>    <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">body&#123;</span><br><span class="line">    display:-webkit-box;</span><br><span class="line">    display:-ms-flexbox;</span><br><span class="line">    display:flex;&#125;</span><br></pre></td></tr></table></figure><br>说明在打包过程中postcss-loader已经自动地将scss转换为兼容的css。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/webpack/" rel="tag"># webpack</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/30/Cookie%E3%80%81Session%E5%92%8CLocalStorage/" rel="next" title="Cookie、Session和LocalStorage">
+                <i class="fa fa-chevron-left"></i> Cookie、Session和LocalStorage
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/11/flex%E5%B8%83%E5%B1%80/" rel="prev" title="flex布局">
+                flex布局 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <!--<a href="/archives/%7C%7C%20archive">-->
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%AE%89%E8%A3%85"><span class="nav-text">一、安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E9%A6%96%E5%85%88%E8%BF%9B%E8%A1%8C%E5%88%9D%E5%A7%8B%E5%8C%96%EF%BC%8C%E5%BE%97%E5%88%B0%E5%90%88%E6%B3%95%E7%9A%84package-json%EF%BC%9B"><span class="nav-text">1、首先进行初始化，得到合法的package.json；</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E8%BF%9B%E5%85%A5webpack%E5%AE%98%E6%96%B9%E7%BD%91%E7%AB%99%EF%BC%8C%E6%9F%A5%E7%9C%8B%E5%AE%89%E8%A3%85%E8%A6%81%E7%82%B9%EF%BC%8C%E8%BF%99%E9%87%8C%E9%80%89%E6%8B%A9%E7%9A%84webpack%E7%89%88%E6%9C%AC%E6%98%AF3-12-0%EF%BC%9B"><span class="nav-text">2、进入webpack官方网站，查看安装要点，这里选择的webpack版本是3.12.0；</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E5%9C%A8%E5%BD%93%E5%89%8D%E7%9B%AE%E5%BD%95%E4%B8%8B%E5%88%9B%E5%BB%BAwebpack-config-js%E6%96%87%E4%BB%B6%EF%BC%8C%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="nav-text">3、在当前目录下创建webpack.config.js文件，文件内容如下：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81%E4%BF%9D%E5%AD%98%E6%96%87%E4%BB%B6%E5%90%8E%EF%BC%8C%E5%9C%A8%E5%BD%93%E5%89%8D%E7%9A%84src%E7%9B%AE%E5%BD%95%E4%B8%8B%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AAindex-js%E6%96%87%E4%BB%B6%EF%BC%8C%E7%84%B6%E5%90%8E%E6%89%A7%E8%A1%8C%E5%A6%82%E4%B8%8B%E5%91%BD%E4%BB%A4%EF%BC%9A"><span class="nav-text">4、保存文件后，在当前的src目录下创建一个index.js文件，然后执行如下命令：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%AE%89%E8%A3%85babel"><span class="nav-text">二、安装babel</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E4%BD%BF%E7%94%A8babel%E6%8A%8AES6%E6%88%96%E8%80%85%E6%9B%B4%E9%AB%98%E7%89%88%E6%9C%AC%E7%9A%84%E4%BB%A3%E7%A0%81%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%85%BC%E5%AE%B9IE%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84JS%E4%BB%A3%E7%A0%81"><span class="nav-text">1、使用babel把ES6或者更高版本的代码转换为兼容IE浏览器的JS代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E5%9C%A8webpack-config-js%E6%96%87%E4%BB%B6%E4%B8%AD%E5%8A%A0%E5%85%A5%E5%A6%82%E4%B8%8B%E4%BB%A3%E7%A0%81%EF%BC%9A"><span class="nav-text">2、在webpack.config.js文件中加入如下代码：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E5%9C%A8index-js%E6%96%87%E4%BB%B6%E4%B8%AD%E5%86%99%E5%85%A5%E5%A6%82%E4%B8%8B%E4%BB%A3%E7%A0%81%EF%BC%9A"><span class="nav-text">3、在index.js文件中写入如下代码：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81%E6%89%A7%E8%A1%8C-node-modules-bin-webpack-%E5%91%BD%E4%BB%A4%EF%BC%8C%E6%9F%A5%E7%9C%8Bdist%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84main-js%E6%96%87%E4%BB%B6%E5%8F%91%E7%8E%B0%E4%BB%A3%E7%A0%81%E5%B7%B2%E7%BB%8F%E8%BD%AC%E6%8D%A2%EF%BC%9A"><span class="nav-text">4、执行 .&#x2F;node-modules&#x2F;.bin&#x2F;webpack  命令，查看dist目录下的main.js文件发现代码已经转换：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%AD%98%E5%9C%A8%E5%A4%9A%E4%B8%AA%E6%A8%A1%E5%9D%97%E6%97%B6%E7%9A%84%E5%A4%84%E7%90%86"><span class="nav-text">三、存在多个模块时的处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E5%9C%A8src%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%96%B0%E5%BB%BAjs%E7%9B%AE%E5%BD%95%E5%B9%B6%E4%B8%94%E4%B8%80%E6%AC%A1%E5%88%9B%E5%BB%BAmodule-1-js%E3%80%81module-2-js-%E4%BB%A5%E5%8F%8Aapp-js%E6%96%87%E4%BB%B6%EF%BC%9B"><span class="nav-text">1、在src目录下新建js目录并且一次创建module_1.js、module_2.js 以及app.js文件；</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E5%9C%A8app-js%E6%96%87%E4%BB%B6%E4%B8%AD%E5%BC%95%E5%85%A5module-1-js%E4%B8%8Emodule-2-js%EF%BC%9A"><span class="nav-text">2、在app.js文件中引入module_1.js与module_2.js：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E4%BF%AE%E6%94%B9webpack-config-js%E6%96%87%E4%BB%B6%E9%83%A8%E5%88%86%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="nav-text">3、修改webpack.config.js文件部分代码如下：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81%E6%89%A7%E8%A1%8C-node-modules-bin-webpack-%E5%91%BD%E4%BB%A4%EF%BC%8C%E6%9F%A5%E7%9C%8Bdist%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84main-js%E6%96%87%E4%BB%B6%EF%BC%8C"><span class="nav-text">4、执行 .&#x2F;node-modules&#x2F;.bin&#x2F;webpack  命令，查看dist目录下的main.js文件，</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%BC%95%E5%85%A5scss%E5%B9%B6%E8%BD%AC%E6%8D%A2%E4%B8%BA%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8F%AF%E4%BB%A5%E8%AF%86%E5%88%AB%E7%9A%84css"><span class="nav-text">四、引入scss并转换为浏览器可以识别的css</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E5%9C%A8src%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%96%B0%E5%BB%BAcss%E7%9B%AE%E5%BD%95%E5%B9%B6%E5%88%9B%E5%BB%BAmain-scss%E6%96%87%E4%BB%B6%EF%BC%8C%E4%B8%94%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="nav-text">1、在src目录下新建css目录并创建main.scss文件，且代码如下：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E5%9C%A8src%E7%9B%AE%E5%BD%95%E4%B8%8B%E5%88%9B%E5%BB%BAindex-html%E6%96%87%E4%BB%B6%E5%B9%B6%E4%B8%94%E5%A4%8D%E5%88%B6%E5%88%B0dist%E7%9B%AE%E5%BD%95%E4%B8%8B%EF%BC%8C%E5%9C%A8index-html%E4%B8%AD%E5%BC%95%E5%85%A5main-js%E6%96%87%E4%BB%B6%EF%BC%9B"><span class="nav-text">2、在src目录下创建index.html文件并且复制到dist目录下，在index.html中引入main.js文件；</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E6%89%A7%E8%A1%8C%E5%AE%89%E8%A3%85%E5%91%BD%E4%BB%A4%EF%BC%9A"><span class="nav-text">3、执行安装命令：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81%E4%BF%AE%E6%94%B9webpack-config-js%E9%83%A8%E5%88%86%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="nav-text">4、修改webpack.config.js部分代码如下：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5%E3%80%81%E5%9C%A8app-js%E4%B8%AD%E5%BC%95%E5%85%A5main-scss%E6%96%87%E4%BB%B6%EF%BC%9A"><span class="nav-text">5、在app.js中引入main.scss文件：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6%E3%80%81%E6%89%A7%E8%A1%8C-node-modules-bin-webpack-%E5%91%BD%E4%BB%A4%EF%BC%8C%E6%89%93%E5%BC%80%E6%9C%8D%E5%8A%A1-http-server-c-1%EF%BC%8C"><span class="nav-text">6、执行 .&#x2F;node-modules&#x2F;.bin&#x2F;webpack  命令，打开服务 http-server -c-1，</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E4%BD%BF%E7%94%A8postcss-loader%E8%87%AA%E5%8A%A8%E4%BD%BFcss%E5%85%BC%E5%AE%B9"><span class="nav-text">五、使用postcss-loader自动使css兼容</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E6%89%A7%E8%A1%8C%E5%AE%89%E8%A3%85%E5%91%BD%E4%BB%A4%EF%BC%9A"><span class="nav-text">1、执行安装命令：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E5%9C%A8%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B%E4%B8%AD%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%87%BA%E9%94%99%EF%BC%8C%E8%BF%99%E9%87%8C%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E6%98%AF%E7%BC%BA%E5%B0%91%E4%BA%86-postcss-cssnext%EF%BC%8C%E6%89%80%E4%BB%A5%E5%86%8D%E5%AE%89%E8%A3%85%E8%BF%99%E9%83%A8%E5%88%86%EF%BC%9A"><span class="nav-text">2、在安装过程中可能会出错，这里遇到的问题是缺少了 postcss-cssnext，所以再安装这部分：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E5%9C%A8%E6%A0%B9%E7%9B%AE%E5%BD%95%E4%B8%8B%E5%88%9B%E5%BB%BApostcss-config-js%E6%96%87%E4%BB%B6%EF%BC%8C%E5%86%85%E5%AE%B9%E4%B8%BA%EF%BC%9A"><span class="nav-text">3、在根目录下创建postcss.config.js文件，内容为：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81%E4%BF%AE%E6%94%B9main-scss%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%E4%B8%BA%EF%BC%9A"><span class="nav-text">4、修改main.scss文件内容为：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5%E3%80%81%E4%BF%AE%E6%94%B9webpack-config-js%E9%83%A8%E5%88%86%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="nav-text">5、修改webpack.config.js部分代码如下：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6%E3%80%81%E6%89%A7%E8%A1%8C-node-modules-bin-webpack-%E5%91%BD%E4%BB%A4%EF%BC%8C%E6%89%93%E5%BC%80%E6%9C%8D%E5%8A%A1-http-server-c-1%EF%BC%8C-1"><span class="nav-text">6、执行 .&#x2F;node-modules&#x2F;.bin&#x2F;webpack  命令，打开服务 http-server -c-1，</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xing</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
